@@ -6,7 +6,7 @@
 //
 // USART 1 IRQ Handler
 //
-void USART1IRQHandler(void){
+void USART1_IRQHandler(void){
   uint16_t data;
 
   data = USART_ReceiveData(USART1);
