@@ -39,6 +39,7 @@ OOCD_BOARD	?= stm32f3discovery
 CMSIS_ROOT_DIR = STM32F3-Discovery_FW_V1.1.0/Libraries/CMSIS
 PERIPHERAL_DRIVERS_ROOT_DIR = STM32F3-Discovery_FW_V1.1.0/Libraries/STM32F30x_StdPeriph_Driver
 
+
 ##
 ## Project Directories
 ##
@@ -61,10 +62,12 @@ BIN_FILE  = $(EXEC_DIR)/$(TARGET).bin
 ## Project sources converted to objects
 ##
 SOURCES     += $(wildcard $(SRC_DIR)/*.c)
-SOURCES += $(CMSIS_ROOT_DIR)/Device/ST/STM32F30x/Source/Templates/system_stm32f30x.c
-ASM_SOURCES += GNU/startup_stm32f30x.s
-
+SOURCES	    += $(CMSIS_ROOT_DIR)/Device/ST/STM32F30x/Source/Templates/system_stm32f30x.c
+SOURCES     += $(wildcard $(PERIPHERAL_DRIVERS_ROOT_DIR)/src/*.c)
+SOURCES     += $(wildcard  STM32F3-Discovery_FW_V1.1.0/Utilities/STM32F3_Discovery/*.c)
 OBJECTS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SOURCES)))
+
+ASM_SOURCES += GNU/startup_stm32f30x.s
 ASM_OBJECTS += $(patsubst %.s, $(OBJ_DIR)/%.o, $(notdir $(ASM_SOURCES)))
 
 SOURCES += $(ASM_SOURCES)
@@ -83,10 +86,11 @@ MAKE_DIRS = $(OBJ_DIR) $(EXEC_DIR)
 ## Include paths
 ##
 PERIPHERAL_DRIVERS_INC_DIR = $(PERIPHERAL_DRIVERS_ROOT_DIR)/inc
+PERIPHERAL_UTILITY_INC_DIR = STM32F3-Discovery_FW_V1.1.0/Utilities/STM32F3_Discovery/
 CMSIS_ARM_INC_DIR = $(CMSIS_ROOT_DIR)/Include
 CMSIS_DEVICE_INC_DIR = $(CMSIS_ROOT_DIR)/Device/ST/STM32F30x/Include
 
-CINCLUDES += -I$(INC_DIR) -I$(PERIPHERAL_DRIVERS_INC_DIR) -I$(CMSIS_ARM_INC_DIR) -I $(CMSIS_DEVICE_INC_DIR)
+CINCLUDES += -I$(INC_DIR) -I$(PERIPHERAL_DRIVERS_INC_DIR) -I$(CMSIS_ARM_INC_DIR) -I $(CMSIS_DEVICE_INC_DIR) -I$(PERIPHERAL_UTILITY_INC_DIR)
 
 ##
 ## Options passed to the C compiler
