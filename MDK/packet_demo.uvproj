@@ -141,7 +141,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>1</TargetSelection>
+          <TargetSelection>10</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -155,7 +155,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>BIN\UL2CM3.DLL</Driver>
+            <Driver>STLink\ST-LINKIII-KEIL_SWO.dll</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -164,12 +164,12 @@
             <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
-            <Capability>0</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <Capability>1</Capability>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -355,9 +355,9 @@
             <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STD_PERIPH_DRIVER</Define>
+              <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\includes;..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\inc;..\STM32F3-Discovery_FW_V1.1.0\Libraries\CMSIS\Include;..\STM32F3-Discovery_FW_V1.1.0\Libraries\CMSIS\Device\ST\STM32F30x\Include</IncludePath>
+              <IncludePath>..\includes;..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\inc;..\STM32F3-Discovery_FW_V1.1.0\Libraries\CMSIS\Include;..\STM32F3-Discovery_FW_V1.1.0\Libraries\CMSIS\Device\ST\STM32F30x\Include;..\STM32F3-Discovery_FW_V1.1.0\Utilities\STM32F3_Discovery</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -412,6 +412,46 @@
               <FileName>system_stm32f30x.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\CMSIS\Device\ST\STM32F30x\Source\Templates\system_stm32f30x.c</FilePath>
+            </File>
+            <File>
+              <FileName>packet_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\packet_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f3_discovery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Utilities\STM32F3_Discovery\stm32f3_discovery.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f30x_syscfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_syscfg.c</FilePath>
             </File>
           </Files>
         </Group>

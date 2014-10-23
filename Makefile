@@ -104,8 +104,12 @@ LDSCRIPT = $(LD_DIR)/stm32f3.ld
 LDFLAGS		+= --static -lc -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections \
 		   -mthumb -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
-TAG_FILES += $(SRC_DIR)/*.c
+TAG_FILES += $(SOURCES)
 TAG_FILES += $(INC_DIR)/*.h
+TAG_FILES += $(PERIPHERAL_DRIVERS_INC_DIR)/*.h
+TAG_FILES += $(CMSIS_ARM_INC_DIR)/*.h
+TAG_FILES += $(CMSIS_DEVICE_INC_DIR)/*.h
+TAG_FILES += $(PERIPHERAL_UTILITY_INC_DIR)/*.h
 
 ##
 ## The list of steps to build the image
@@ -157,4 +161,3 @@ $(OBJ_DIR)/%.o:%.s
 clean:
 	rm -rf $(OBJ_DIR) $(EXEC_DIR) TAGS
 	find . -name "*~" | xargs rm -f
-#	make -C $(STM32F3_CUBE_HAL_ROOT_DIR) clean
