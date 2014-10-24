@@ -157,7 +157,6 @@ $(OBJ_DIR)/%.o:%.s
 	@echo "Assembling $<"
 	@$(CC) $(CFLAGS) -o $@ -c $< 
 
-
 clean:
 	rm -rf $(OBJ_DIR) $(EXEC_DIR) TAGS
 	find . -name "*~" | xargs rm -f

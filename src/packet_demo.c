@@ -12,9 +12,9 @@ int main(){
  
   PacketUARTInit();
   __enable_irq();
-  STM_EVAL_LEDOn(LED3);
+  
   while(1){
-    USART_SendData(USART1, 'A');
+    //USART_SendData(USART2, 'A');
   }
 
   return 0;

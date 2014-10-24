@@ -28,6 +28,10 @@
 *.x86_64
 *.hex
 
+# MDK Files
+*.crf
+*.d
+
 # Emacs backups
 *~
 
