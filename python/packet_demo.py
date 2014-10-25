@@ -7,8 +7,7 @@ Required Libraries:
 serial, QT4
 '''
 
-import serial
-import array
+from Hardware import SerialPort
 
 __author__ = "Philip Tracton"
 __copyright__ = "Copyright 2014, Philip Tracton"
@@ -25,18 +24,8 @@ if __name__ == "__main__":
     Program Entry Point
     '''
     print("Packet Demo")
-    port = serial.Serial(timeout=0.25)
-    port.setByteSize(serial.EIGHTBITS)
-    port.setParity(serial.PARITY_NONE)
-    port.setStopbits(serial.STOPBITS_ONE)
-    settings = port.getSettingsDict()
-    port.applySettingsDict(settings)
-    port.baudrate = 115200
-    port.setBaudrate(port.baudrate)
-    port.setPort("/dev/ttyUSB0")
-    port.open()
-    transmit = array.array('B', [0]).tostring()
-    port.write(transmit)
+
+    new = SerialPort.SerialPort()
 
  #   ListOfPorts = serial.tools.list_ports.comports()
  #   print (ListOfPorts)
