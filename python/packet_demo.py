@@ -7,8 +7,6 @@ Required Libraries:
 serial, QT4
 '''
 
-from Hardware import SerialPort
-
 __author__ = "Philip Tracton"
 __copyright__ = "Copyright 2014, Philip Tracton"
 __credits__ = ["Philip Tracton"]
@@ -18,14 +16,19 @@ __maintainer__ = "Philip Tracton"
 __email__ = "ptracton@gmail.com"
 __status__ = "Experimental"
 
+import sys
+import os
+from PyQt4.QtGui import *
+import PacketDemo.PacketDemoUI
+
 
 if __name__ == "__main__":
     '''
     Program Entry Point
     '''
+    sys.path.append(os.getcwd())
     print("Packet Demo")
-
-    new = SerialPort.SerialPort()
-
- #   ListOfPorts = serial.tools.list_ports.comports()
- #   print (ListOfPorts)
+    app = QApplication(sys.argv)
+    GUI = PacketDemo.PacketDemoUI.PacketDemoUI()
+    GUI.show()
+    app.exec_()

@@ -160,3 +160,4 @@ $(OBJ_DIR)/%.o:%.s
 clean:
 	rm -rf $(OBJ_DIR) $(EXEC_DIR) TAGS
 	find . -name "*~" | xargs rm -f
+	find . -name "*pyc" | xargs rm -f

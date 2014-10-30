@@ -7,8 +7,9 @@ UI class for Serial Port hardware.  This will have an instantiation of a Serial 
 ##
 # The GUI libraries since we build some GUI components here
 ##
-from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyQt4.QtCore import *
+
 
 import sys
 sys.path.append("..")
