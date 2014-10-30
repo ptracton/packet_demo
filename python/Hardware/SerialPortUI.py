@@ -10,7 +10,7 @@ UI class for Serial Port hardware.  This will have an instantiation of a Serial 
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-
+import logging
 import sys
 sys.path.append("..")
 import Hardware.SerialPort
@@ -18,12 +18,14 @@ import Hardware.SerialPort
 
 class SerialPortUI:
 
-    def __init__(self, parent=None, name="Serial Port"):
+    def __init__(self, parent=None, name="Serial Port", port="/dev/ttyUSB0",
+                 baud_rate="115200", bits=8, parity=None, stop_bits=1):
 
         #
         # Serial Port
         #
-        self.serial_port = Hardware.SerialPort.SerialPort()
+        self.serial_port = Hardware.SerialPort.SerialPort(port, baud_rate,
+                                                          bits, parity, stop_bits)
 
         #
         # GUI components
@@ -32,7 +34,7 @@ class SerialPortUI:
         self.SerialPortComboBox = QComboBox()
         self.SerialPortComboBox.addItems(self.serial_port.get_list_of_ports())
 
-        baud_rate_list = ["57600", "38400", "115200", "9600"]
+        baud_rate_list = ["115200", "57600", "38400", "9600"]
         self.BaudRateSelected = baud_rate_list[0]
         self.BaudRateComboBox = QComboBox()
         self.BaudRateComboBox.addItems(baud_rate_list)
