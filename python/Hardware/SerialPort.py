@@ -20,15 +20,18 @@ class SerialPort(serial.Serial):
     """
 
     def __init__(self, port="/dev/ttyUSB0", baud_rate="115200", bits=8,
-                 parity=None, stop_bits=1):
+                 parity="None", stop_bits=1):
         """
         SerialPort constructor.  This will open the serial port specified
         or terminate the program if it can not open it.
         """
         super(SerialPort, self).__init__(timeout=0.25)
 
-        com_port_list = list(serial.tools.list_ports.comports())
-        self.ports = [x[0] for x in com_port_list]
+        try:
+            com_port_list = list(serial.tools.list_ports.comports())
+            self.ports = [x[0] for x in com_port_list]
+        except TypeError:
+            self.ports = ["/dev/ttyUSB0"]
 
         self.setPort(port)
 
@@ -43,7 +46,7 @@ class SerialPort(serial.Serial):
         elif bits == 5:
             self.setByteSize(serial.FIVEBITS)
 
-        if parity == None:
+        if parity == "None":
             self.setParity(serial.PARITY_NONE)
         elif parity == "Even":
             self.setParity(serial.PARITY_EVEN)
@@ -67,6 +70,8 @@ class SerialPort(serial.Serial):
         """
         try:
             self.open()
+            logging.info("%s: Open Serial Port successful %s" %
+                        (__name__, self.getPort()))
         except OSError:
             logging.error("%s: Failed to open Serial Port %s" %
                           (__name__, self.getPort()))

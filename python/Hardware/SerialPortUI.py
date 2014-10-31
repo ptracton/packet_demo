@@ -1,16 +1,16 @@
 #! /usr/bin/env python3
 
 """
-UI class for Serial Port hardware.  This will have an instantiation of a Serial port.
+UI class for Serial Port hardware.  This will have an instantiation of a
+Serial port.
 """
 
-##
+#
 # The GUI libraries since we build some GUI components here
-##
+#
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 
-import logging
 import sys
 sys.path.append("..")
 import Hardware.SerialPort
@@ -25,7 +25,8 @@ class SerialPortUI:
         # Serial Port
         #
         self.serial_port = Hardware.SerialPort.SerialPort(port, baud_rate,
-                                                          bits, parity, stop_bits)
+                                                          bits, parity,
+                                                          stop_bits)
 
         #
         # GUI components
@@ -54,9 +55,9 @@ class SerialPortUI:
         self.SerialPortLayout.addWidget(self.SerialConnectButton)
         self.SerialPortLayout.addWidget(self.SerialDisConnectButton)
 
-        ##
+        #
         # Serial port configs based on GUI selection (defaults)
-        ##
+        #
         self.serial_port.setBaudrate(self.BaudRateSelected)
         self.serial_port.setPort("/dev/ttyUSB0")
 
