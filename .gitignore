@@ -31,6 +31,17 @@
 # MDK Files
 *.crf
 *.d
+*.axf 
+*.htm
+*.lnp
+*.map
+*.log
+*.lst
+*.dep
+*.ptracton
+*.axf
+*.bak
+TAGS
 
 # Emacs backups
 *~

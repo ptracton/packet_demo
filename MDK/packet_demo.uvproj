@@ -453,6 +453,16 @@
               <FileType>1</FileType>
               <FilePath>..\STM32F3-Discovery_FW_V1.1.0\Libraries\STM32F30x_StdPeriph_Driver\src\stm32f30x_syscfg.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32f3_Exec.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\stm32f3_Exec.c</FilePath>
+            </File>
+            <File>
+              <FileName>packet_handler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\packet_handler.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -7,21 +7,38 @@
 //
 // USART 2 IRQ Handler
 //
-void USART2_IRQHandler(void){
-  uint16_t data;
+void USART2_IRQHandler(void) {
+  //uint16_t data;
 
-  data = USART_ReceiveData(USART2);
-  USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+  //data = USART_ReceiveData(USART2);
+  //USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+  //STM_EVAL_LEDToggle(LED4);
+  //USART_SendData(USART2, data);
+
+
+  //
+  // Clear the RXNE flag
+  //
+  USART2->RQR |= USART_RQR_RXFRQ;
+
+  //
+  // Clear the interrupt at the NVIC level
+  //
+  NVIC_ClearPendingIRQ(USART2_IRQn);
+
+  //
+  // Queue up the task to run
+  //
+  Exec_SetTask(EXEC_TASK_PACKET_ADD_BYTE_TASK);
   STM_EVAL_LEDToggle(LED4);
-  USART_SendData(USART2, data);
   return;
 }
 
 /***
-    Initialize the UART for use in packet communication.  We are using 
+    Initialize the UART for use in packet communication.  We are using
     USART 1, since USART 2 is in use for the CLI
  ***/
-void PacketUARTInit(void){
+void PacketUARTInit(void) {
 
   GPIO_InitTypeDef Pin_A2;
   GPIO_InitTypeDef Pin_A3;
@@ -67,7 +84,7 @@ void PacketUARTInit(void){
   uart2.USART_BaudRate = 115200;
   USART_Init(USART2, &uart2);
 
-  // Get the RXNE (receive not empty) IRQ so we know when a packet is 
+  // Get the RXNE (receive not empty) IRQ so we know when a packet is
   // starting to arrive
   USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
   NVIC_EnableIRQ(USART2_IRQn);

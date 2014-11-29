@@ -4,8 +4,9 @@
 
 
 #include "packet_uart.h"
-
-
+#include "packet_handler.h"
+#include "stm32f3_DMA.h"
+#include "stm32f3_Exec.h"
 
 #endif
 
