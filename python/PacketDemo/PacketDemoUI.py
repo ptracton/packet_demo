@@ -117,7 +117,8 @@ class PacketDemoUI(QDialog):
         # Get the GUI ip and running
         #
         self.setLayout(layOut)
-        self.setWindowTitle("Learning Python and Embedded Software 1  Packet Demo")
+        self.setWindowTitle(
+            "Learning Python and Embedded Software 1  Packet Demo")
         pass
 
     def SerialConnectButtonClicked(self):

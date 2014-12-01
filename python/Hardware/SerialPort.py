@@ -30,7 +30,7 @@ class SerialPort(serial.Serial):
         try:
             com_port_list = list(serial.tools.list_ports.comports())
             self.ports = [x[0] for x in com_port_list]
-        except TypeError:
+        except (NameError, TypeError):
             self.ports = ["/dev/ttyUSB0"]
 
         self.setPort(port)

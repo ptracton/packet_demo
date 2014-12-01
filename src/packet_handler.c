@@ -89,8 +89,16 @@ void Packet_Task(void){
 
 void Packet_AddByte_Task(void){
   static uint16_t ii;
-  
+  uint8_t data;
+
   switch(packet_rx_state){
+  case PACKET_RX_STATE_IDLE:
+    data = USART_ReceiveData(USART2);
+    if (data == PACKET_PREAMBLE_BYTE){
+      packet_rx_state = PACKET_RX_STATE_TYPE;
+    }else{
+      packet_rx_state = PACKET_RX_STATE_IDLE;
+    }
   case PACKET_RX_STATE_TYPE:
     packet_rx.type = USART_ReceiveData(USART2);
     packet_rx_state = PACKET_RX_STATE_SIZE;

@@ -48,3 +48,6 @@ TAGS
 
 # Python files
 *.pyc
+
+GNU/executable/
+outputs/

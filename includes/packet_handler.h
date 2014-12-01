@@ -5,11 +5,13 @@
 
 #define MAX_PACKET_COUNT 32
 
-#define PACKET_RX_STATE_TYPE  0
-#define PACKET_RX_STATE_SIZE  1
-#define PACKET_RX_STATE_DATA  2
-#define PACKET_RX_STATE_CRC   3
-#define PACKET_RX_STATE_ERROR 4
+#define PACKET_RX_STATE_IDLE  0
+#define PACKET_RX_STATE_TYPE  1
+#define PACKET_RX_STATE_SIZE  2
+#define PACKET_RX_STATE_DATA  3
+#define PACKET_RX_STATE_CRC   4
+
+#define PACKET_PREAMBLE_BYTE (0xC7)
 
 /*******************************************************************************
 
