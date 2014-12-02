@@ -147,18 +147,36 @@ This example requires the following components:
 
 
 \section{Code}
+
+\noindent The design from the class was a CLI.  This was pretty simply on the target and on the PC side.  On the PC, putty or another terminal emulator, could be used to send strings of commands to the target.  This is hard to use since you had to type in a lot of commands and our CLI was not forgiving of typos.  It was also easy to slip in bad commands since whatever you typed went to the target and required the target to sanitize the inputs.  This puts extra burden on the target.\\
+
+\vspace{0.5cm}
+
+\noindent A different approach is what we are taking in this demonstration.  The CLI code is removed.  It is replaced with the Packet Handling code.  Putty or another terminal emulator is not needed.  They have been replaced with a python script that gives the user a GUI interface.  Instead of typing commands, the user can click on buttons.  This is an easier interface for users.  It allows for input sanitization to be done on the PC, removing this load from the target.  The challenge to this approach is that a new application for the PC now must be written and maintained and rolled out to the PCs that host the targets.  The 2 most common tools I see for this are LabView and Python.  Since I teach both the embedded software and python courses I thought I would put together a demonstration of Python controlling an embedded target.  \\
+
+\vspace{0.5cm}
+\noindent The code on the target is very similar to that used in the course.  
+
 \subsection{Packet RX State Machine}
+
+
 \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.8cm,
                     semithick]
   \tikzstyle{every state}=[fill=UCLABlue,draw=none,text=white]
 
-  \node[initial,state] (IDLE)                      {IDLE};
-  \node[state]         (GetType)        [below right of=IDLE] {Get Type};
-  \node[state]         (GetSize)        [below of =GetType] {Get Size};
+  \node[initial,state] (IDLE)           {IDLE};
+  \node[state, minimum size=0, white]         (invisible1)     [below right of=IDLE] {};               
+  \node[state]         (GetType)        [below right of=invisible1] {Get Type};
+  \node[state, minimum size=0, white]         (invisible3)     [below of=GetType] {};               
+  \node[state]         (GetSize)        [below of =invisible3] {Get Size};
+  \node[state, minimum size=0, white]         (invisible5)     [below of=GetSize] {};               
 
-  \node[state]         (ExecuteCommand) [below left of=IDLE] {Execute};
-  \node[state]         (GetCRC)         [below of=ExecuteCommand]       {Get CRC};
-  \node[state]         (GetData)        [below left of=GetSize] {Get Data};
+  \node[state, minimum size=0, white]         (invisible2)     [below left of=IDLE] {};                 
+  \node[state]         (ExecuteCommand) [below left of=invisible2] {Execute};
+  \node[state, minimum size=0, white]         (invisible4)     [below of=ExecuteCommand] {};                 
+  \node[state]         (GetCRC)         [below of=invisible4]       {Get CRC};
+  \node[state, minimum size=0, white]         (invisible6)     [below of=GetCRC] {};                 
+  \node[state, xshift=2cm]         (GetData)        [below right of=invisible6] {Get Data};
 
 
 
