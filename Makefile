@@ -25,6 +25,8 @@ GDB	= $(PREFIX)-gdb
 FLASH	= $(shell which st-flash)
 MKDIR   = mkdir
 RM      = rm
+DDD     = ddd
+
 
 ##
 ## OpenOCD setup
@@ -140,8 +142,8 @@ program: dirs $(BIN_FILE)
 	$(FLASH) --reset write $(BIN_FILE) 0x8000000
 
 debug: $(ELF_FILE)
-	$(GDB) --tui -x ../GNU/gdb_cmds $(ELF_FILE)
-
+	#ddd --debugger arm-none-eabi-gdb $(ELF_FILE)
+	$(DDD) --debugger $(GDB) $(ELF_FILE) --eval-command="target remote localhost:4242"
 
 ##
 ## Turn out C code into objects in our $(OBJ_DIR)
