@@ -41,7 +41,8 @@
 #include "stm32l4xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "executive.h"
+#include "packet_handler.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -85,14 +86,6 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-	HAL_StatusTypeDef status;
-	status = HAL_UART_Receive_IT(huart, &echo_char, 1);
-	if (HAL_OK == status) {
-		echo = 1;
-	}
-	return;
-}
 
 /* USER CODE END 0 */
 
@@ -136,24 +129,28 @@ int main(void)
   /* USER CODE BEGIN 2 */
   echo = 0;
   echo_char = 0;
+  packetHandler_Init();
+  executive_Init();
   HAL_UART_Receive_IT(&huart1, &echo_char, 1);
 
+
+  executive_Start();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	  if (echo == 1){
-		  HAL_UART_Transmit_IT(&huart1, &echo_char, 1);
-		  echo = 0;
-	  }
+  /* while (1) */
+  /* { */
+	  /* if (echo == 1){ */
+	  /* 	  HAL_UART_Transmit_IT(&huart1, &echo_char, 1); */
+	  /* 	  echo = 0; */
+	  /* } */
 
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
 
-  }
+  //  }
   /* USER CODE END 3 */
 
 }
