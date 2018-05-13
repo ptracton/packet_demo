@@ -62,6 +62,8 @@ DMA_HandleTypeDef hdma_memtomem_dma1_channel1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+static uint8_t echo_char;
+static volatile uint8_t echo;
 
 /* USER CODE END PV */
 
@@ -83,6 +85,14 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+	HAL_StatusTypeDef status;
+	status = HAL_UART_Receive_IT(huart, &echo_char, 1);
+	if (HAL_OK == status) {
+		echo = 1;
+	}
+	return;
+}
 
 /* USER CODE END 0 */
 
@@ -124,6 +134,9 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
+  echo = 0;
+  echo_char = 0;
+  HAL_UART_Receive_IT(&huart1, &echo_char, 1);
 
   /* USER CODE END 2 */
 
@@ -131,6 +144,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (echo == 1){
+		  HAL_UART_Transmit_IT(&huart1, &echo_char, 1);
+		  echo = 0;
+	  }
 
   /* USER CODE END WHILE */
 

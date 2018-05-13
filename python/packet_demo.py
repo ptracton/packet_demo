@@ -45,6 +45,6 @@ if __name__ == "__main__":
     logging.info("Program Starting")
 
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-    GUI = PacketDemoUI.PacketDemoUI()
+    GUI = PacketDemoUI.PacketDemoUI(configuration=configuration)
     GUI.show()
     app.exec_()
