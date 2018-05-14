@@ -129,8 +129,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   echo = 0;
   echo_char = 0;
+
+  executive_Init();  // Must come first since it will erase the list of tasks that can run!
+  
   packetHandler_Init();
-  executive_Init();
+
   HAL_UART_Receive_IT(&huart1, &echo_char, 1);
 
 
