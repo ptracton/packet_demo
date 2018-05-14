@@ -6,3 +6,8 @@
 *** It is necessary to set "High Spedd clock(HSE)" to "Crystal/Ceramic Resonator" with RCC on the Pinout tab. HSI is not accurate and can not be used for USB.
 
 * STM32L4
+* Packet Commands
+| Command ID | Size | Payload | Response | Description          |
+|------------+------+---------+----------+----------------------|
+|         00 |   00 |      00 | F3/L4    | Board identification |
+|         01 |      |         |          |                      |
