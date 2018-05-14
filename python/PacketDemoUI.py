@@ -44,12 +44,18 @@ class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
 
         # Only send the data if it is all digits.  Target does NOT process strings
         data = self.centralWindow.transmitData.text()
-        if data.isdigit():
-            n = 2
-            dataList = [data[i:i+n] for i in range(0, len(data), n)]
-            dataList = [int(x) for x in dataList]
-            print(dataList)
-            self.centralWindow.serialPortUI.transmitData(dataList)
+#        if data.isdigit():
+        n = 2
+        dataList = [data[i:i+n] for i in range(0, len(data), n)]
+        try:
+            dataList = [int(x, 16) for x in dataList]
+        except:
+            logging.error("Invalid Data in transmitDataPushButtonClicked {}".format(dataList))
+            print("Invalid Data in transmitDataPushButtonClicked {}".format(dataList))
+            return
+
+        print(dataList)
+        self.centralWindow.serialPortUI.transmitData(dataList)
 
         return
 
