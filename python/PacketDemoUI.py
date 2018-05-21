@@ -31,9 +31,34 @@ class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
             self.serialPortPushButtonClicked)
 
         self.centralWindow.transmitPushButton.clicked.connect(self.transmitDataPushButtonClicked)
-
+        self.centralWindow.packetPushButton.clicked.connect(self.packetPushButtonClicked)
         self.show()
 
+        return
+
+    def packetPushButtonClicked(self):
+
+        packetToSendList = [0xc7]
+
+        packetCommandText = self.centralWindow.packetCommandLineEdit.text()
+        # TODO: Some input sanitization here!
+        packetToSendList.append(int(packetCommandText, 16))
+
+        packetPayloadText = self.centralWindow.packetPayloadLineEdit.text()
+
+        packetPayloadList = packetPayloadText.split(",")
+        packetPayloadList = [int(x, 16) for x in packetPayloadList]
+
+        packetNumBytes = len(packetPayloadList)
+        packetToSendList.append(packetNumBytes)
+        packetToSendList.extend(packetPayloadList)
+        packetToSendList.extend([0xde, 0xda])
+
+        print("packetPushButtonClicked: packetToSendList {}".format(packetToSendList))
+       # packetToSendList = [int(x, 16) for x in packetToSendList]
+       # print("packetPushButtonClicked: packetToSendList {}".format(packetToSendList))
+
+        self.centralWindow.serialPortUI.transmitData(packetToSendList)
         return
 
     def transmitDataPushButtonClicked(self):

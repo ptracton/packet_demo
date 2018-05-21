@@ -32,9 +32,23 @@ class UI_CentralWindow(PyQt5.QtWidgets.QDialog):
         self.hbox.addWidget(self.transmitData)
         self.hbox.addWidget(self.transmitPushButton)
 
+        # Create a packet
+        self.packetHbox = PyQt5.QtWidgets.QHBoxLayout()
+        packetCommandLabel = PyQt5.QtWidgets.QLabel("Packet Command")
+        self.packetCommandLineEdit = PyQt5.QtWidgets.QLineEdit()
+        packetPayloadLabel = PyQt5.QtWidgets.QLabel("Packet Payload")
+        self.packetPayloadLineEdit = PyQt5.QtWidgets.QLineEdit()
+        self.packetPushButton = PyQt5.QtWidgets.QPushButton("Transmit Packet")
+        self.packetHbox.addWidget(packetCommandLabel)
+        self.packetHbox.addWidget(self.packetCommandLineEdit)
+        self.packetHbox.addWidget(packetPayloadLabel)
+        self.packetHbox.addWidget(self.packetPayloadLineEdit)
+        self.packetHbox.addWidget(self.packetPushButton)
+
         # Put elements together
         self.topVBox.addLayout(self.serialPortLayout)
         self.topVBox.addLayout(self.hbox)
+        self.topVBox.addLayout(self.packetHbox)
         self.setLayout(self.topVBox)
 
         return

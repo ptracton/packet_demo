@@ -23,6 +23,8 @@ static bool transmittingPacket;                        // Are we transmitting a 
 PacketHandlerRXStateMachine_TypeDef rxStateMachine;    // State machine for receiving a packet
 static uint8_t packet_char;                            // The last character received
 
+static packetHandler packetHandlerList[PACKET_MAX_COMMAND]; // This is our list of handlers for received packets
+
 /*
  * @brief UART IRQ handler for receiving packets
  * @retval None
@@ -93,6 +95,13 @@ void packetHandler_ReceiveByte(void){
 }
 
 void packetHandler_ProcessPacket(void){
+
+  //TODO: Check packet CRC signature!
+  
+  if (NULL != packetHandlerList[rxPacket.command]){
+    packetHandlerList[rxPacket.command](&rxPacket);
+  }
+  
   return;
 }
 
@@ -106,6 +115,22 @@ void packetHandler_SetUART(UART_HandleTypeDef * ptr){
   }
 }
 
+
+void packetHandler_Ping(PacketHandler_TypeDef * pkt){
+  
+  
+  return;
+}
+
+void packetHandler_InstallHandler(uint8_t index, packetHandler phandle){
+
+  if (index >= PACKET_MAX_COMMAND){
+    return;
+  }
+  packetHandlerList[index] = phandle;
+  return;
+}
+
 /*
  * @brief init thte packet handling system
  * @retval None
@@ -113,6 +138,7 @@ void packetHandler_SetUART(UART_HandleTypeDef * ptr){
 void packetHandler_Init(void){
   memset(&rxPacket, 0, sizeof(PacketHandler_TypeDef));
   memset(&txPacket, 0, sizeof(PacketHandler_TypeDef));
+  memset(&packetHandlerList, 0, PACKET_MAX_COMMAND*sizeof(packetHandler));
   receivingPacket = false;
   transmittingPacket = false;
   rxStateMachine = RX_PACKET_IDLE;
@@ -123,5 +149,5 @@ void packetHandler_Init(void){
 
   executive_InstallTask(packetHandler_ProcessPacket,
 			 TASK_PACKET_HANDLER_PROCESS_PACKET);
-
+  packetHandler_InstallHandler(PACKET_PING, packetHandler_Ping);
 }

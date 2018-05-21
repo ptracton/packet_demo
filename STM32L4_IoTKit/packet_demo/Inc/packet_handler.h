@@ -25,7 +25,8 @@ typedef enum{
 
 typedef enum{
   PACKET_PING = 0x00,
-  PACKET_ID
+  PACKET_ID,
+  PACKET_MAX_COMMAND
 } PacketHandlerCommands_TypeDef;
 
 typedef struct{
@@ -34,6 +35,8 @@ typedef struct{
   uint8_t payLoad[PACKET_PAYLOAD_SIZE];
   uint16_t crc;
 } PacketHandler_TypeDef;
+
+typedef void (*packetHandler)(PacketHandler_TypeDef *);
 
 /* function prototypes ------------------------------------------------------------*/
 void packetHandler_SetUART(UART_HandleTypeDef * ptr);
