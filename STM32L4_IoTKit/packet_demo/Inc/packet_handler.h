@@ -18,8 +18,10 @@ typedef enum{
   RX_PACKET_COMMAND,
   RX_PACKET_BYTE_COUNT,
   RX_PACKET_PAYLOAD,
-  RX_PACKET_CRC_HIGH,
-  RX_PACKET_CRC_LOW,
+  RX_PACKET_CRC_BYTE3,
+  RX_PACKET_CRC_BYTE2,
+  RX_PACKET_CRC_BYTE1,
+  RX_PACKET_CRC_BYTE0,
   RX_PACKET_ERROR
 } PacketHandlerRXStateMachine_TypeDef;
 
@@ -33,7 +35,7 @@ typedef struct{
   PacketHandlerCommands_TypeDef command;
   uint8_t byteCount;
   uint8_t payLoad[PACKET_PAYLOAD_SIZE];
-  uint16_t crc;
+  uint32_t crc;
 } PacketHandler_TypeDef;
 
 typedef void (*packetHandler)(PacketHandler_TypeDef *);

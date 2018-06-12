@@ -66,25 +66,34 @@ void packetHandler_ReceiveByte(void){
     rxPacketPayloadCount ++;
 
     if (rxPacketPayloadCount >=rxPacket.byteCount){
-      rxStateMachine = RX_PACKET_CRC_HIGH;
+      rxStateMachine = RX_PACKET_CRC_BYTE3;
     }else{
       rxStateMachine = RX_PACKET_PAYLOAD;
     }
     break;
 
-  case RX_PACKET_CRC_HIGH:
-    rxPacket.crc = (packet_char << 8);
-    rxStateMachine = RX_PACKET_CRC_LOW;
+  case RX_PACKET_CRC_BYTE3:
+    rxPacket.crc = (packet_char << 24);
+    rxStateMachine = RX_PACKET_CRC_BYTE2;
     break;    
 
-  case RX_PACKET_CRC_LOW:
+  case RX_PACKET_CRC_BYTE2:
+    rxPacket.crc = (packet_char << 16);
+    rxStateMachine = RX_PACKET_CRC_BYTE1;
+    break;    
+
+  case RX_PACKET_CRC_BYTE1:
+    rxPacket.crc = (packet_char << 8);
+    rxStateMachine = RX_PACKET_CRC_BYTE0;
+    break;    
+
+  case RX_PACKET_CRC_BYTE0:
     rxPacket.crc |= packet_char;
     rxStateMachine = RX_PACKET_IDLE;
     receivingPacket = false;
     executive_SetTask(TASK_PACKET_HANDLER_PROCESS_PACKET);
     break;    
 
-    
   default:
     receivingPacket = false;
     rxStateMachine = RX_PACKET_IDLE;
