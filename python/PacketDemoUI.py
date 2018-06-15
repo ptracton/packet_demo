@@ -4,6 +4,7 @@ import logging
 import PyQt5
 import PyQt5.QtWidgets
 import UI_CentralWindow
+import Packet
 
 
 class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
@@ -30,7 +31,7 @@ class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
         self.centralWindow.serialPortUI.serialPortPushButton.clicked.connect(
             self.serialPortPushButtonClicked)
 
-        self.centralWindow.transmitPushButton.clicked.connect(self.transmitDataPushButtonClicked)
+        # self.centralWindow.transmitPushButton.clicked.connect(self.transmitDataPushButtonClicked)
         self.centralWindow.packetPushButton.clicked.connect(self.packetPushButtonClicked)
         self.show()
 
@@ -38,9 +39,7 @@ class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
 
     def packetPushButtonClicked(self):
 
-        packetToSendList = [0xc7]
-
-        packetCommandText = self.centralWindow.packetCommandLineEdit.text()
+        packetCommandNumber = self.centralWindow.packetCommandComboBox.currentIndex()
         # TODO: Some input sanitization here!
         packetToSendList.append(int(packetCommandText, 16))
 
@@ -49,16 +48,18 @@ class PacketDemoUI(PyQt5.QtWidgets.QMainWindow):
         packetPayloadList = packetPayloadText.split(",")
         packetPayloadList = [int(x, 16) for x in packetPayloadList]
 
+        packetToSend = Packet.Packet(packetCommandNumber, packetPayloadText)
+
         packetNumBytes = len(packetPayloadList)
         packetToSendList.append(packetNumBytes)
         packetToSendList.extend(packetPayloadList)
         packetToSendList.extend([0xde, 0xda])
 
-        print("packetPushButtonClicked: packetToSendList {}".format(packetToSendList))
+        print("packetPushButtonClicked: packetToSendList {}".format(packetToSend))
        # packetToSendList = [int(x, 16) for x in packetToSendList]
        # print("packetPushButtonClicked: packetToSendList {}".format(packetToSendList))
 
-        self.centralWindow.serialPortUI.transmitData(packetToSendList)
+        self.centralWindow.serialPortUI.transmitData(packetToSend)
         return
 
     def transmitDataPushButtonClicked(self):

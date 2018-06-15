@@ -3,6 +3,7 @@ import PyQt5
 import PyQt5.QtWidgets
 
 import UI_SerialPort
+import Packet
 
 
 class UI_CentralWindow(PyQt5.QtWidgets.QDialog):
@@ -25,22 +26,25 @@ class UI_CentralWindow(PyQt5.QtWidgets.QDialog):
         self.serialPortLayout.addLayout(self.serialPortUI.getLayout())
 
         # Direct data transmission, lets us send any data we want
-        transmitLabel = PyQt5.QtWidgets.QLabel("Transmit Data")
-        self.transmitData = PyQt5.QtWidgets.QLineEdit()
-        self.transmitPushButton = PyQt5.QtWidgets.QPushButton("Transmit Data")
-        self.hbox.addWidget(transmitLabel)
-        self.hbox.addWidget(self.transmitData)
-        self.hbox.addWidget(self.transmitPushButton)
+        #transmitLabel = PyQt5.QtWidgets.QLabel("Transmit Data")
+        #self.transmitData = PyQt5.QtWidgets.QLineEdit()
+        #self.transmitPushButton = PyQt5.QtWidgets.QPushButton("Transmit Data")
+        # self.hbox.addWidget(transmitLabel)
+        # self.hbox.addWidget(self.transmitData)
+        # self.hbox.addWidget(self.transmitPushButton)
 
         # Create a packet
         self.packetHbox = PyQt5.QtWidgets.QHBoxLayout()
         packetCommandLabel = PyQt5.QtWidgets.QLabel("Packet Command")
-        self.packetCommandLineEdit = PyQt5.QtWidgets.QLineEdit()
+        self.packetCommandComboBox = PyQt5.QtWidgets.QComboBox()
+        packets = [e.value for e in Packet.PacketCommand]
+        packetNames = [x[1] for x in packets]
+        self.packetCommandComboBox.addItems(packetNames)
         packetPayloadLabel = PyQt5.QtWidgets.QLabel("Packet Payload")
         self.packetPayloadLineEdit = PyQt5.QtWidgets.QLineEdit()
         self.packetPushButton = PyQt5.QtWidgets.QPushButton("Transmit Packet")
         self.packetHbox.addWidget(packetCommandLabel)
-        self.packetHbox.addWidget(self.packetCommandLineEdit)
+        self.packetHbox.addWidget(self.packetCommandComboBox)
         self.packetHbox.addWidget(packetPayloadLabel)
         self.packetHbox.addWidget(self.packetPayloadLineEdit)
         self.packetHbox.addWidget(self.packetPushButton)

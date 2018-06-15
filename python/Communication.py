@@ -1,3 +1,9 @@
+"""
+Communication.py
+
+This file handles the actual serial port (or other?) communication channel
+between the PC and the embedded target
+"""
 
 import serial
 import serial.tools.list_ports
